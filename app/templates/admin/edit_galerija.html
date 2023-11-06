@@ -1,0 +1,44 @@
+
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Administratoriaus puslapis {% endblock %}
+{% block header %} Galerijos redagavimas {% endblock %}
+{% block main %}
+
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <a href="{{ url_for('add_cheese') }}" class="btn btn-primary" id="addArticle">Pridėti naują įrašą</a>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for cheese in cheeses %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="image-container">
+                    <img src="{{ url_for('uploads', filename=cheese.img_name) }}" alt="{{ cheese.img_name }}" class="img img-thumbnail">
+                    </div>
+                    <div class="card-body">
+                        <ul style="list-style: none; padding: 0;">
+                        <li class="list-item"><span class="material-icons icon" title="Pavadinimas">badge</span>{{cheese.name}}</li>
+                        <li class="list-item"><span class="material-icons icon" title="Rūšis">groups_3</span>{{cheese.cheese_type}}</li>
+                        <li class="list-item"><span class="material-icons icon" title="Kilmės šalis">travel_explore</span>{{cheese.origin}}</li>
+                        <li class="list-item"><span class="material-icons icon" title="Pienas">local_drink</span>{{cheese.milk}}</li>
+                        </ul>
+                        <div class="d-flex justify-content-center align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ url_for('download', file_id=cheese.id) }}" class="btn btn-success">Atsisiųsti</a>
+                            <a href="{{ url_for('edit', file_id=cheese.id) }}" class="btn btn-warning">Redaguoti</a>
+                            <a href="{{ url_for('delete', file_id=cheese.id) }}" class="btn btn-danger">Ištrinti</a>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

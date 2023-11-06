@@ -1,0 +1,121 @@
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Administratoriaus puslapis {% endblock %}
+{% block header %} Vartotojo meniu redagavimas {% endblock %}
+{% block main %}
+
+    <div class="container mt-5">
+        <div class="row">
+        <div class="col-sm-8 mx-auto">
+            <table class="table table-hover">
+                <thead class="table-success">
+                  <tr>
+
+                    {% for c in columns %} 
+                    <th>{{ c }}</th>
+                    {% endfor %}
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for x in menuUser %}
+                  <tr>
+                    <td>{{ x.id }}</td>
+                    <td>{{ x.name }}</td>
+                    <td>{{ x.url }}</td>
+                    <td>
+                        <form action="/handle_form_user" method="post">
+                            <input id="{{ x.id }}" type="hidden" name="item_id" value="{{ x.id }}">
+                            <button type="submit" name="action" value="edit" class="btn btn-primary actBtn editBtn"
+                            data-item-id="{{ x.id }}" data-item-name="{{ x.name }}" data-item-url="{{ x.url }}">Edit</button>
+                            <button type="submit" name="action" value="delete" class="btn btn-danger actBtn">Delete</button>
+                            
+                        </form>
+                    </td>
+                  </tr>
+                    {% endfor %}
+
+                </tbody>
+            
+            </table>
+
+            <button type="submit" name="action" value="new_element" class="btn btn-danger newBtn">Pridėti naują</button>
+            <div class="alert alert-primary" id="infoMsg">
+              <strong>Dėmesio!</strong> Įrašykite norimus <strong> pakeitimus </strong>.
+            </div>
+            <form id="editForm" class="hidden" action="/admin/edit_menu_element_user" method="POST">
+              <input type="hidden" name="item_id" value="">
+              <div class="form-group info_div1">
+                  <label class="vietove">Meniu punkto pavadinimas:</label>
+                  <input type="text" class="form-control" name="MenuItemName" value="OK">
+              </div>
+              <div class="form-group info_div2">
+                  <label class="gyventoju_sk">Url:</label>
+                  <input type="text" class="form-control" name="url">
+              </div>
+              <button type="submit" class="btn btn-danger mt-3" value="issaugoti"> Išsaugoti </button>
+          </form>
+          <br>
+        </div> 
+        </div>
+    </div>
+
+<script>
+       document.querySelectorAll('.editBtn').forEach(function (editButton) {
+  editButton.addEventListener('click', function (event) {
+    event.preventDefault(); 
+    
+    var itemId = this.getAttribute('data-item-id');
+    var itemName = this.getAttribute('data-item-name');
+    var itemUrl = this.getAttribute('data-item-url');
+    
+    var form = document.getElementById('editForm');
+    var alert = document.getElementById('infoMsg'); 
+    
+    form.querySelector('input[name="item_id"]').value = itemId;
+    form.querySelector('input[name="MenuItemName"]').value = itemName;
+    form.querySelector('input[name="url"]').value = itemUrl;
+
+    
+    if (form.style.display === 'none' || form.style.display === '') {
+      alert.innerHTML = ' <strong>Dėmesio!</strong> Įrašykite norimus <strong> pakeitimus </strong>.'
+      form.style.display = 'block';
+      alert.style.display ='block';
+    } else {
+      alert.innerHTML = ' <strong>Dėmesio!</strong> Įrašykite <strong> naujo </strong> elemento parametrus.'
+      form.querySelector('input[name="MenuItemName"]').value = '';
+      form.querySelector('input[name="url"]').value = '';
+      form.style.display = 'none';
+      alert.style.display ='none';
+    }
+  });
+});
+</script>
+
+<script>
+  document.querySelectorAll('.newBtn').forEach(function (newButtton) {
+    newButtton.addEventListener('click', function (event) {
+      event.preventDefault(); 
+
+var form = document.getElementById('editForm'); 
+var alert = document.getElementById('infoMsg');
+
+if (form.style.display === 'none' || form.style.display === '') {
+ form.style.display = 'block';
+ form.action = action="/admin/add_menu_element_user";
+ alert.innerHTML = ' <strong>Dėmesio!</strong> Įrašykite <strong> naujo </strong> elemento parametrus.'
+ form.querySelector('input[name="MenuItemName"]').value = '';
+ form.querySelector('input[name="url"]').value = '';
+ alert.style.display ='block';
+} else {
+ form.style.display = 'none';
+ form.action = action="/admin/edit_menu_element_user";
+ alert.innerHTML = ' <strong>Dėmesio!</strong> Įrašykite norimus <strong> pakeitimus </strong> pakeitimus.';
+ alert.style.display ='none';
+}
+});
+});
+</script>
+
+{% endblock %}

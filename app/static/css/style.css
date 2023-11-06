@@ -1,0 +1,149 @@
+
+.actBtn{
+    opacity: 0;
+}
+tr:hover .actBtn {
+    opacity: 1;
+}
+
+#editForm, #infoMsg {
+    display: none;
+}
+
+#infoMsg{
+    margin-top:15px;
+}
+
+.regBtn{
+    margin-top:5px;
+}
+
+#floatingPassword2{
+    margin-top:-10px
+}
+#floatingPassword1{
+    margin-top: 10px
+}
+#siela{
+    margin-top: 12px
+}
+
+html, body {
+height: 100%;
+}
+body {
+display: flex;
+flex-direction: column;
+}
+.content {
+flex: 1 0 auto;
+}
+.footer {
+flex-shrink: 0;
+}
+
+header{
+    background-size: cover;
+}
+
+.headerText{ 
+    border: 3px solid #f1f1f1;
+    background-color: rgba(0,0,0, 0.8); 
+    width:fit-content;
+    padding:30px;
+}
+
+.headPublic{
+    background-image: url('../images/header.webp');
+}
+.headAdmin{
+    background-image: url('../images/settings.webp');
+}
+.lenta{
+    background-image: url('../images/lenta.webp');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 300px;
+}
+
+#addArticle{
+    margin: 10px;
+}
+
+#accUserLogo{
+    color:#008851;
+}
+#accUserName{
+    padding: 5px;
+    color: #ffff;
+}
+#accUser{
+    display:flex;
+    align-items: center;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.card {
+    height: 100%; 
+}
+
+.image-container img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.image-container {
+    width: 100%; 
+    height: 250px; 
+    overflow: hidden; 
+}
+
+.fab{
+    margin-right: 20px; 
+    font-size: 24px;
+}
+
+.footT{
+    font-size: 20px;
+}
+
+#imagePreview{
+    display: none;
+}
+
+
+.fade-out {
+    opacity: 1; 
+    transition: opacity 3s; 
+}
+
+.hidden_result {
+    opacity: 0; 
+}
+
+.drag-cursor {
+    cursor: url('../images/cheese_cursor.png') 16 16, auto;
+  }
+  
+.drag-cursor:hover {
+cursor: url('../images/cheese_cursor.png') 16 16, auto;
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}

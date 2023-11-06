@@ -1,0 +1,17 @@
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Upload puslapis {% endblock %}
+{% block header %} Upload puslapis {% endblock %}
+{% block main %}
+
+<div class="container mt-3">
+  <h2>Stacked form</h2>
+  <form action="/all_uploads" method="POST" enctype="multipart/form-data">
+    <div class="mb-3 mt-3">
+      <label for="file">Paveikslelis</label>
+      <input type="file" class="form-control" id="file" name="file">
+    </div>
+    <button type="submit" value="Upload" class="btn btn-success">Ikelti</button>
+  </form>
+</div>
+
+{% endblock %}

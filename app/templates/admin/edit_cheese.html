@@ -1,0 +1,53 @@
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Sūrio redagavimas {% endblock %}
+{% block header %} Sūrio redagavimas {% endblock %}
+{% block main %}
+
+<div class="container mt-3">
+  <h2>Pakeiskite sūrio duomenis</h2>
+  <form action="{{ url_for('edit', file_id=file.id) }}" method="POST" enctype="multipart/form-data">
+    <img id="imagePre" src="{{ url_for('uploads', filename=file.img_name) }}" class="img img-thumbnail" style="width:200px;">
+    <div class="mb-3 mt-3">
+      <label for="new_img_name">Naujas Paveikslėlis</label>
+      <input type="file" class="form-control" id="new_img_name" name="new_img_name" onchange="preImage(this)">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="cheese_name">Pavadinimas</label>
+      <input type="text" class="form-control" id="cheese_name" name="name" value="{{ file.name }}">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="cheese_type">Rūšis</label>
+      <input type="text" class="form-control" id="cheese_type" name="cheese_type" value="{{ file.cheese_type }}">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="cheese_origin">Kilmės šalis</label>
+      <input type="text" class="form-control" id="cheese_origin" name="origin" value="{{ file.origin }}">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="cheese_milk">Pieno rūšis</label>
+      <input type="text" class="form-control" id="cheese_milk" name="milk" value="{{ file.milk }}">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="cheese_description">Aprašymas</label>
+      <textarea class="form-control" id="cheese_description" name="description" rows="4">{{ file.description }}</textarea>
+    </div>
+    <button type="submit" value="Upload" class="btn btn-success">Išsaugoti pakeitimus</button>
+  </form>
+  <br>
+</div>
+
+<script>
+  function preImage(input) {
+    const imagePre = document.getElementById('imagePre');
+    
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imagePre.src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+{% endblock %}

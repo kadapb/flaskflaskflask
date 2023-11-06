@@ -1,0 +1,13 @@
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Administratoriaus puslapis {% endblock %}
+{% block header %} Administratoriaus puslapis {% endblock %}
+{% block main %}
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-sm-8 col-sm-8 mx-auto text-center">
+          <h2> Tamsta, <i><b> {{current_user.username}} </i></b>, sveiki atvykę į Administravimo puslapį</h2><br>
+          <img src="static/images/goofy.gif" alt="goofy gifas" style="padding-bottom: 10px;">
+      </div> 
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'admin/templates/admin_template.html' %}
+{% block title %} Upload puslapis {% endblock %}
+{% block header %} Upload puslapis {% endblock %}
+{% block main %}
+
+<div class="container mt-3">
+  <h2>Suveskite naujo sūrio duomenis</h2>
+  <form action="/admin/add_cheese" method="POST" enctype="multipart/form-data">
+    <div class="mb-3 mt-3">
+      <label for="img_name">Paveikslėlis</label>
+      <input type="file" class="form-control" id="img_name" name="img_name">
+    </div>
+        <div class="mb-3 mt-3">
+        <label for="name">Pavadinimas</label>
+        <input type="text" class="form-control" id="cheese_name" name="name">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="cheese_type">Rūšis</label>
+        <input type="text" class="form-control" id="cheese_type" name="cheese_type">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="origin">Kilmės šalis</label>
+        <input type="text" class="form-control" id="cheese_origin" name="origin">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="milk">Pieno rūšis</label>
+        <input type="text" class="form-control" id="cheese_milk" name="milk">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="description">Aprašymas</label>
+        <textarea class="form-control" id="cheese_description" name="description" rows="4"></textarea>
+      </div>
+    <button type="submit" value="Upload" class="btn btn-success">Ikelti</button>
+  </form>
+</div>
+
+{% endblock %}

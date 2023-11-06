@@ -1,0 +1,100 @@
+{% extends 'public/templates/public_template.html' %}
+{% block title %} IS IT A PLANE? IS IT A BIRD? IS IT A CHHHEEEESEE? {% endblock %}
+{% block header %} IS IT A PLANE? IS IT A BIRD? IS IT A CHHHEEEESEE? {% endblock %}
+{% block main %}
+<div class="container mt-5 text-center drag-cursor" id="drag-drop-area">
+    <h4><strong>Užmesk sūri(<i>arba ne. . .</i>) ant lentos</strong></h4>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+
+        <div id="drop-zone" class="lenta">
+            <input type="file" id="file-input" style="display: none">
+            <div>
+                <img id="imagePreview" style="max-width: 300px; max-height: 300px;" />
+            </div>
+        </div>
+
+        <div>
+            <h2 id="predictionResult" class="fade-out hidden_result"></h2>
+        </div>
+    </form>
+</div>
+<br>
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const imagePreview = document.getElementById('imagePreview');
+    const predictionResult = document.getElementById('predictionResult');
+
+    function processFile(file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            imagePreview.src = event.target.result;
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                const isCheese = data.result !== "Model prediction: 1, hence NOT cheese!";
+                predictionResult.textContent = isCheese ? "SŪRIS!" : "NE SŪRIS!";
+                predictionResult.classList.remove(isCheese ? "red-text" : "green-text");
+                predictionResult.classList.add(isCheese ? "green-text" : "red-text");
+                predictionResult.classList.remove('hidden_result');
+
+                setTimeout(function () {
+                    predictionResult.classList.add('hidden_result');
+                }, 1500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        };
+    reader.readAsDataURL(file);
+}
+    
+    function openFileExplorer() {
+        fileInput.click();
+    }
+
+    function handleDragEnter(e) {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleDragLeave(e) {
+        dropZone.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            processFile(file);
+        }
+    }
+
+    function handleFileInputChange(e) {
+        const file = fileInput.files[0];
+        if (file) {
+            processFile(file);
+        }
+    }
+
+    dropZone.addEventListener('dragenter', handleDragEnter);
+    dropZone.addEventListener('dragover', handleDragOver);
+    dropZone.addEventListener('dragleave', handleDragLeave);
+    dropZone.addEventListener('drop', handleDrop);
+    fileInput.addEventListener('change', handleFileInputChange);
+    dropZone.addEventListener('dblclick', openFileExplorer);
+
+</script>
+{% endblock %}
